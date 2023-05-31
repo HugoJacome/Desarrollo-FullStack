@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
 
 import com.unir.operador.model.pojo.Purchase;
 import com.unir.operador.model.request.PurchaseRequest;
@@ -68,11 +69,16 @@ public class PurchasesController {
 
 	@PostMapping("/purchases")
 	public ResponseEntity<Purchase> createPurchase(@RequestBody PurchaseRequest request) {
-		Purchase createdPurchase = service.createPurchase(request);
-		if (createdPurchase != null) {
-			return ResponseEntity.status(HttpStatus.CREATED).body(createdPurchase);
-		} else {
-			return ResponseEntity.badRequest().build();
+		Purchase createdPurchase;
+		try {
+			createdPurchase = service.createPurchase(request);
+			if (createdPurchase != null) {
+				return ResponseEntity.status(HttpStatus.CREATED).body(createdPurchase);
+			} else {
+				return ResponseEntity.badRequest().build();
+			}
+		} catch (HttpClientErrorException e) {
+			return ResponseEntity.status(e.getStatusCode()).build();
 		}
 	}
 }

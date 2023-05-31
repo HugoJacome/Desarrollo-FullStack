@@ -93,7 +93,7 @@ public class ProductsController {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product doesn't exits!");
 			}
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Stock not available for that mount");
+			return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body("Stock not available for that mount");
 		}
 
 	}
