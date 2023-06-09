@@ -1,5 +1,6 @@
 package com.unir.operador.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,10 +52,16 @@ public class PurchasesServiceImpl implements PurchasesService {
 			Customer customer = Customer.builder().id(request.getCustomerId()).build();
 			Purchase purchase = Purchase.builder().productId(request.getProductId()).customerId(customer)
 					.quantity(request.getQuantity()).totalAmount(request.getTotalAmount()).build();
-			return repository.save(purchase);
-		} else {
-			return null;
-		}
+			try {
+				return repository.save(purchase);
+			} catch (Exception e) {
+				//Suma cantidad restada anteriormente
+				reqDrecreProduct.setQuantityToDecrease(-reqDrecreProduct.getQuantityToDecrease());
+				productsFacade.decreaseQuantityProduct(reqDrecreProduct);
+			}
+			
+		} 
+		return null;
 	}
 
 }
