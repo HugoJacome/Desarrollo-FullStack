@@ -27,3 +27,5 @@ replay_pid*
 /cloud-gateway/target/
 /eureka/target/
 /operadorUnir/target/
+/.metadata
+/dbs/volumes/

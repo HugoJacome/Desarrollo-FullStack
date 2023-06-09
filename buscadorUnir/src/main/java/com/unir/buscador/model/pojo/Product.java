@@ -53,7 +53,7 @@ public class Product {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Category categoryId;
 
-	@Column(name = "description", unique = true, nullable = false)
+	@Column(name = "description", unique = false, nullable = false)
 	private String description;
 
 	@Column(name = "quantity_avaliable", nullable = false)
