@@ -43,7 +43,7 @@ public class ProductsController {
 		}
 	}
 
-	@GetMapping("/product")
+	@GetMapping("/products")
 	public ResponseEntity<Object> getProduct(@RequestParam(required = false, name = "id") String productId,
 			@RequestParam(required = false) String title, @RequestParam(required = false) String description) {
 		if (Stream.of(productId, title, description).filter(a -> a != null).count() > 1)
