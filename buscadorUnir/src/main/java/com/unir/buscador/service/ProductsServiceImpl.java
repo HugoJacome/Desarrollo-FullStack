@@ -19,9 +19,14 @@ public class ProductsServiceImpl implements ProductsService {
 	private ProductDataAccessRepository repository;
 
 	@Override
-	public List<Product> getProducts(String productId, String title, String description) {
-		List<Product> products = repository.findProducts(productId, title, description);
+	public List<Product> getProducts(String title, String description) {
+		List<Product> products = repository.findProducts(title, description);
 		return products.isEmpty() ? null : products;
+	}
+	
+	@Override
+	public Product getProduct(String productId) {
+		return repository.findById(productId).orElse(null);
 	}
 
 	@Override

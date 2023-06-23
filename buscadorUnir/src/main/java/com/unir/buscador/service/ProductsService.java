@@ -8,7 +8,9 @@ import com.unir.buscador.model.request.DecreaseProductRequest;
 
 public interface ProductsService {
 
-	List<Product> getProducts(String productId, String title, String description);
+	List<Product> getProducts(String title, String description);
+	
+	Product getProduct(String productId);
 
 	Boolean removeProduct(String customerId);
 

@@ -32,14 +32,24 @@ public class ProductsController {
 	private final ProductsService service;
 
 	@GetMapping("/products")
-	public ResponseEntity<List<Product>> getProducts(@RequestHeader Map<String, String> headers, @RequestParam(required = false, name = "id") String productId,
+	public ResponseEntity<List<Product>> getProducts(@RequestHeader Map<String, String> headers,
 			@RequestParam(required = false) String title, @RequestParam(required = false) String description) {
 		log.info("headers: {}", headers);
-		List<Product> products = service.getProducts(productId, title, description);
+		List<Product> products = service.getProducts(title, description);
 		if (products != null) {
 			return ResponseEntity.ok(products);
 		} else {
 			return ResponseEntity.ok(Collections.emptyList());
+		}
+	}
+	
+	@GetMapping("/products/{productId}")
+	public ResponseEntity<Product> getProduct(@PathVariable String productId) {
+		Product product = service.getProduct(productId);
+		if (product != null) {
+			return ResponseEntity.ok(product);
+		} else {
+			return ResponseEntity.notFound().build();
 		}
 	}
 
@@ -51,7 +61,6 @@ public class ProductsController {
 		} else {
 			return ResponseEntity.notFound().build();
 		}
-
 	}
 
 	@PostMapping("/products")

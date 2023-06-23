@@ -22,11 +22,7 @@ public class CategoriesServiceImpl implements CategoriesService {
 	public List<Category> getCategories() {
 		Iterable<Category> categories = repository.findAll();
 		List<Category> lista = new ArrayList<>();
-		System.out.println(categories);
-		for (Category category : categories) {
-			System.out.println(category);
-			lista.add(category);
-		}
+		categories.forEach(lista::add);
 		return lista.isEmpty() ? null : lista;
 	}
 
