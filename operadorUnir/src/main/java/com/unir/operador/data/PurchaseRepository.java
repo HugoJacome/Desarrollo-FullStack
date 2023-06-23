@@ -8,5 +8,5 @@ import com.unir.operador.model.pojo.Purchase;
 
 public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
 
-	List<Purchase> findByProductId(Long productId);
+	List<Purchase> findByProductId(String productId);
 }

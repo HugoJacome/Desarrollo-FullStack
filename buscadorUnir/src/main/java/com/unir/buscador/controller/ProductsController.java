@@ -3,7 +3,6 @@ package com.unir.buscador.controller;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +32,10 @@ public class ProductsController {
 	private final ProductsService service;
 
 	@GetMapping("/products")
-	public ResponseEntity<List<Product>> getProducts(@RequestHeader Map<String, String> headers) {
+	public ResponseEntity<List<Product>> getProducts(@RequestHeader Map<String, String> headers, @RequestParam(required = false, name = "id") String productId,
+			@RequestParam(required = false) String title, @RequestParam(required = false) String description) {
 		log.info("headers: {}", headers);
-		List<Product> products = service.getProducts();
+		List<Product> products = service.getProducts(productId, title, description);
 		if (products != null) {
 			return ResponseEntity.ok(products);
 		} else {
@@ -43,27 +43,9 @@ public class ProductsController {
 		}
 	}
 
-	@GetMapping("/search/products")
-	public ResponseEntity<Object> getProduct(@RequestParam(required = false, name = "id") String productId,
-			@RequestParam(required = false) String title, @RequestParam(required = false) String description) {
-		if (Stream.of(productId, title, description).filter(a -> a != null).count() > 1)
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You must have one parameter!");
-		log.info("Request received for product {}", productId);
-		Product product = service.getProduct(productId, title, description);
-
-		if (product != null) {
-			return ResponseEntity.ok(product);
-		} else {
-			return ResponseEntity.notFound().build();
-		}
-
-	}
-
 	@DeleteMapping("/products/{productId}")
 	public ResponseEntity<Void> deletePurchaser(@PathVariable String productId) {
-
 		Boolean removed = service.removeProduct(productId);
-
 		if (Boolean.TRUE.equals(removed)) {
 			return ResponseEntity.ok().build();
 		} else {

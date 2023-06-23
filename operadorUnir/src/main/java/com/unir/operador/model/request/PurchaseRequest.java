@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PurchaseRequest {
 
-	private Long productId;
+	private String productId;
 	private Long customerId;
 	private Integer quantity;
 	private BigDecimal totalAmount;

@@ -11,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DecreaseProductRequest {
 
-	private Long productId;
+	private String productId;
 	private Integer quantityToDecrease;
 }

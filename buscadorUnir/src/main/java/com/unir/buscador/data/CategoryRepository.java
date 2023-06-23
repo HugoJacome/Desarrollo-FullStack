@@ -1,9 +1,10 @@
 package com.unir.buscador.data;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+
+import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 import com.unir.buscador.model.pojo.Category;
 
-public interface CategoryRepository extends JpaRepository<Category, Integer> {
+public interface CategoryRepository extends ElasticsearchRepository<Category, String> {
 
 }

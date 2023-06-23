@@ -1,13 +1,20 @@
 package com.unir.buscador.data;
 
+import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 import com.unir.buscador.model.pojo.Product;
 
-public interface ProductRepository extends JpaRepository<Product, Integer> {
+public interface ProductRepository extends ElasticsearchRepository<Product, String> {
+	List<Product> findByTitle(String title);
 
-	Optional<Product> findByTitle(String title);
-	Optional<Product> findByDescription(String description);
+	Optional<Product> findById(String id);
+
+	Product save(Product product);
+
+	void delete(Product product);
+
+	List<Product> findAll();
 }

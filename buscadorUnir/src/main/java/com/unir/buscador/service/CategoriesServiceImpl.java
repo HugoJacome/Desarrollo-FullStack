@@ -1,5 +1,7 @@
 package com.unir.buscador.service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +20,24 @@ public class CategoriesServiceImpl implements CategoriesService {
 
 	@Override
 	public List<Category> getCategories() {
-		List<Category> categories = repository.findAll();
-		return categories.isEmpty() ? null : categories;
+		Iterable<Category> categories = repository.findAll();
+		List<Category> lista = new ArrayList<>();
+		System.out.println(categories);
+		for (Category category : categories) {
+			System.out.println(category);
+			lista.add(category);
+		}
+		return lista.isEmpty() ? null : lista;
 	}
 
 	@Override
 	public Category getCategory(String categoryId) {
-		return repository.findById(Integer.valueOf(categoryId)).orElse(null);
+		return repository.findById(categoryId).orElse(null);
 	}
 
 	@Override
 	public Boolean removeCategory(String categoryId) {
-		Category category = repository.findById(Integer.valueOf(categoryId)).orElse(null);
+		Category category = repository.findById(categoryId).orElse(null);
 		if (category != null) {
 			repository.delete(category);
 			return Boolean.TRUE;
@@ -43,7 +51,7 @@ public class CategoriesServiceImpl implements CategoriesService {
 
 		if (request != null && StringUtils.hasLength(request.getName().trim())
 				&& StringUtils.hasLength(request.getDescription().trim())) {
-			Category category = Category.builder().name(request.getName()).description(request.getDescription()).build();
+			Category category = Category.builder().name(request.getName()).description(request.getDescription()).createdAt(new Date()).build();
 			return repository.save(category);
 		} else {
 			return null;
