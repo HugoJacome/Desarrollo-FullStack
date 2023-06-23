@@ -22,10 +22,11 @@ import lombok.ToString;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Product {
 
-	private Integer id;
+	private String id;
 	private String title;
-	private BigDecimal price;
+	private Double price;
 	private String description;
 	private Integer quantityAvaliable;
 	private Date createdAt;
+	private String thumbnail;
 }

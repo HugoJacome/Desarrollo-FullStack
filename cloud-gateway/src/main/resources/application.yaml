@@ -30,11 +30,14 @@ spring:
       globalcors: ## Configuracion de CORS a nivel Gateway
         cors-configurations:
           '[/**]': ## Para todas las rutas
-            allowedOrigins: ${ALLOWED_ORIGINS} ## Si ponemos '*' permitimos todos los origenes. Podemos restringir indicando dominios o ip + puerto, p.ej http://localhost:3000 (donde esta nuestro front, o un dominio de Vercel)
+            allowedOrigins: "*" ## Si ponemos '*' permitimos todos los origenes. Podemos restringir indicando dominios o ip + puerto, p.ej http://localhost:3000 (donde esta nuestro front, o un dominio de Vercel)
             allowedHeaders: "*"
             allowedMethods:
             - GET
             - POST
+            - PUT
+            - DELETE
+            - PATCH
       
 
 ## Habilitamos la API Actuator para poder acceder a /actuator/gateway/routes

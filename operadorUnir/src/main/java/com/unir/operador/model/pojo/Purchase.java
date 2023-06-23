@@ -43,11 +43,6 @@ public class Purchase {
 	
 	@Column(name = "product_id", nullable = false)
 	private String productId;
-
-	@JoinColumn(name = "customer_id", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.LAZY)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	private Customer customerId;
 	
 	@Column(name = "purchase_date")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -58,6 +53,27 @@ public class Purchase {
 	
 	@Column(name = "total_amount", nullable = false, scale = 2, precision = 10)
 	private BigDecimal totalAmount;
+	
+	@Column(name = "customer_name", nullable = false)
+	private String customerName;
+	
+	@Column(name = "customer_last_name", nullable = false)
+	private String customerLastName;
+	
+	@Column(name = "customer_email", nullable = false)
+	private String customerEmail;
+	
+	@Column(name = "customer_phone", nullable = false)
+	private String customerPhone;
+	
+	@Column(name = "customer_address", nullable = false)
+	private String customerAddress;
+	
+	@Column(name = "customer_city", nullable = false)
+	private String customerCity;
+	
+	@Column(name = "comments")
+	private String comments;
 
 	@PrePersist
 	public void preInsert() {

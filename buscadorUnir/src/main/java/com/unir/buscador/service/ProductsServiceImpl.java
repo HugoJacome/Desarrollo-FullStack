@@ -39,9 +39,10 @@ public class ProductsServiceImpl implements ProductsService {
 	public Product createProduct(CreateProductRequest request) {
 		if (request != null && StringUtils.hasLength(request.getTitle().trim()) && request.getPrice() != null
 				&& StringUtils.hasLength(request.getDescription().trim()) && request.getQuantityAvaliable() != null
-				&& request.getCategoryId() != null) {
+				&& request.getCategoryId() != null && StringUtils.hasLength(request.getThumbnail())) {
 			Product product = Product.builder().title(request.getTitle()).price(request.getPrice())
 					.description(request.getDescription()).quantityAvaliable(request.getQuantityAvaliable())
+					.thumbnail(request.getThumbnail())
 					.categoryId(request.getCategoryId()).createdAt(new Date()).build();
 			return repository.save(product);
 		} else {

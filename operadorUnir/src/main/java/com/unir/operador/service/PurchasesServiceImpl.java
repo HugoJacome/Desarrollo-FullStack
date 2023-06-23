@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.unir.operador.data.PurchaseRepository;
 import com.unir.operador.facade.ProductsFacade;
@@ -44,12 +45,27 @@ public class PurchasesServiceImpl implements PurchasesService {
 
 	@Override
 	public Purchase createPurchase(PurchaseRequest request) {
-		if (request != null && request.getProductId() != null && request.getCustomerId() != null
-				&& request.getQuantity() != null && request.getTotalAmount() != null) {
+		if (
+				request != null
+				&& request.getProductId() != null
+				&& request.getQuantity() != null
+				&& request.getTotalAmount() != null
+				&& StringUtils.hasLength(request.getCustomerName())
+				&& StringUtils.hasLength(request.getCustomerLastName())
+				&& StringUtils.hasLength(request.getCustomerEmail())
+				&& StringUtils.hasLength(request.getCustomerPhone())
+				&& StringUtils.hasLength(request.getCustomerAddress())
+				&& StringUtils.hasLength(request.getCustomerCity())
+			) {
 			DecreaseProductRequest reqDrecreProduct = new DecreaseProductRequest(request.getProductId(), request.getQuantity());
 			productsFacade.decreaseQuantityProduct(reqDrecreProduct);
-			Customer customer = Customer.builder().id(request.getCustomerId()).build();
-			Purchase purchase = Purchase.builder().productId(request.getProductId()).customerId(customer)
+			Purchase purchase = Purchase.builder().productId(request.getProductId())
+					.customerName(request.getCustomerName())
+					.customerLastName(request.getCustomerLastName())
+					.customerPhone(request.getCustomerPhone())
+					.customerEmail(request.getCustomerEmail())
+					.customerCity(request.getCustomerCity())
+					.customerAddress(request.getCustomerAddress())
 					.quantity(request.getQuantity()).totalAmount(request.getTotalAmount()).build();
 			try {
 				return repository.save(purchase);

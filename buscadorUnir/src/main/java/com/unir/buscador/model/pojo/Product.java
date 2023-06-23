@@ -39,6 +39,9 @@ public class Product {
 
 	@Field(type = FieldType.Search_As_You_Type, name = "description")
 	private String description;
+	
+	@Field(type = FieldType.Text, name = "thumbnail")
+	private String thumbnail;
 
 	@Field(type = FieldType.Integer, name = "quantityAvaliable")
 	private Integer quantityAvaliable;

@@ -2,6 +2,7 @@ package com.unir.operador.model.request;
 
 import java.math.BigDecimal;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,13 @@ import lombok.Setter;
 public class PurchaseRequest {
 
 	private String productId;
-	private Long customerId;
 	private Integer quantity;
 	private BigDecimal totalAmount;
+	private String customerName;
+	private String customerLastName;
+	private String customerEmail;
+	private String customerPhone;
+	private String customerAddress;
+	private String customerCity;
+	private String comments;
 }

@@ -2,6 +2,7 @@ package com.unir.buscador.data;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -46,7 +47,7 @@ public class ProductDataAccessRepository {
 		BoolQueryBuilder querySpec = QueryBuilders.boolQuery();
 
 		if (!StringUtils.isEmpty(productId)) {
-			querySpec.must(QueryBuilders.termQuery("id", productId));
+			return Stream.of(productRepository.findById(productId).get()).toList();
 		}
 
 		if (!StringUtils.isEmpty(title)) {
