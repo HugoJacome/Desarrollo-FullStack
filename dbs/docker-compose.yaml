@@ -1,19 +1,6 @@
 version: '3.9'
 
-services:
-  search_engine_mysql:
-    image: mysql:latest
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: (&sDbWY^A4tz+wWj
-      MYSQL_DATABASE: products
-      MYSQL_USER: main
-      MYSQL_PASSWORD: secretfoo
-    ports:
-      - 3308:3306
-    volumes:
-      - ./volumes/search_schemas:/var/lib/mysql
-  
+services: 
 
   action_mysql:
     image: mysql:latest
