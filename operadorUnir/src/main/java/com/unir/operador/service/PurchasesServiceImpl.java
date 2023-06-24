@@ -8,7 +8,6 @@ import org.springframework.util.StringUtils;
 
 import com.unir.operador.data.PurchaseRepository;
 import com.unir.operador.facade.ProductsFacade;
-import com.unir.operador.model.pojo.Customer;
 import com.unir.operador.model.pojo.Purchase;
 import com.unir.operador.model.request.DecreaseProductRequest;
 import com.unir.operador.model.request.PurchaseRequest;
@@ -45,8 +44,7 @@ public class PurchasesServiceImpl implements PurchasesService {
 
 	@Override
 	public Purchase createPurchase(PurchaseRequest request) {
-		if (
-				request != null
+		if (request != null
 				&& request.getProductId() != null
 				&& request.getQuantity() != null
 				&& request.getTotalAmount() != null
@@ -60,13 +58,11 @@ public class PurchasesServiceImpl implements PurchasesService {
 			DecreaseProductRequest reqDrecreProduct = new DecreaseProductRequest(request.getProductId(), request.getQuantity());
 			productsFacade.decreaseQuantityProduct(reqDrecreProduct);
 			Purchase purchase = Purchase.builder().productId(request.getProductId())
-					.customerName(request.getCustomerName())
-					.customerLastName(request.getCustomerLastName())
-					.customerPhone(request.getCustomerPhone())
-					.customerEmail(request.getCustomerEmail())
-					.customerCity(request.getCustomerCity())
-					.customerAddress(request.getCustomerAddress())
-					.quantity(request.getQuantity()).totalAmount(request.getTotalAmount()).build();
+					.customerName(request.getCustomerName()).customerLastName(request.getCustomerLastName())
+					.customerPhone(request.getCustomerPhone()).customerEmail(request.getCustomerEmail())
+					.customerCity(request.getCustomerCity()).customerAddress(request.getCustomerAddress())
+					.quantity(request.getQuantity()).totalAmount(request.getTotalAmount())
+					.comments(request.getComments()).build();
 			try {
 				return repository.save(purchase);
 			} catch (Exception e) {
